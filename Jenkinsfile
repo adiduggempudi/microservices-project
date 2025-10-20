@@ -1,26 +1,5 @@
 pipeline {
     agent any
-    environment {
-        SCANNER_HOME= tool "mysonar"
-    }
-    stages {
-        stage ('Code Quality Analysis') {
-            steps {
-               withSonarQubeEnv('mysonar') {
-                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=myproject \
-                      -Dsonar.projectKey=myproject '''
-                       }
-                   }
-            }
-        }
-        stage ("Quality Gates") {
-            steps {
-                script {
-                   waitForQualityGate abortPipeline: false, credentialsId: 'tokem'
-                  }
-            }
-        }
-  
     stages {
         stage('Deploy To Kubernetes') {
             steps {
