@@ -1,24 +1,6 @@
 pipeline {
-    agent any
-    stages {
-        stage ('Code Quality Analysis') {
-            steps {
-               withSonarQubeEnv('mysonar') {
-                     sh ''' mysonar/bin/sonar-scanner -Dsonar.projectName=myproject \
-                      -Dsonar.projectKey=myproject '''
-                       }
-                   }
-            }
-        }
-        stage ("Quality Gates") {
-            steps {
-                script {
-                   waitForQualityGate abortPipeline: false, credentialsId: 'tokem'
-                  }
-            }
-        }
-  
-        stage('Build & Tag Docker Image') {
+    agent any 
+       stage('Build & Tag Docker Image') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
