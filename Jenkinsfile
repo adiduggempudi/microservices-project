@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    environment {
-        SCANNER_HOME= tool "mysonar"
-    }
+    // environment {
+    //     SCANNER_HOME= tool "mysonar"
+    // }
     stages {
         stage ('Code Quality Analysis') {
             steps {
