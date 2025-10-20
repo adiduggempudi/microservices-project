@@ -11,6 +11,11 @@ pipeline {
                 }
             }
         }
+        stage ('Scan Image') {
+            steps {
+                sh 'trivy image adinarayana25/adservice:latest '
+            }
+        }
         
         stage('Push Docker Image') {
             steps {
